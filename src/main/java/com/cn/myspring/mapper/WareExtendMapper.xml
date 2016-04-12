@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.myspring.mapper.WareExtendMapper">
+
+	<sql id="Base_Column_List">
+		id, name, businessid, creationdate, periodtime, pic, price
+	</sql>
+	<sql id="Blob_Column_List">
+		detail
+	</sql>
+	<!-- 定义商品查询的sql片段，就是商品查询条件 -->
+	<sql id="query_wares_where">
+		<!-- 使用动态sql，通过if判断，满足条件进行sql拼接 -->
+		<!-- 商品查询条件通过ItemsQueryVo包装对象 中itemsCustom属性传递 -->
+		<if test="name!=null and name!=''">
+			name LIKE concat('%',#{name},'%')
+		</if>
+	</sql>
+
+	<sql id="in_ids">
+		<if test="ids!=null">
+			<!-- 使用 foreach遍历传入ids collection：指定输入 对象中集合属性 item：每个遍历生成对象中 open：开始遍历时拼接的串 
+				close：结束遍历时拼接的串 separator：遍历的两个对象中需要拼接的串 -->
+			<!-- 使用实现下边的sql拼接： AND (id=1 OR id=10 OR id=16) -->
+			<foreach collection="ids" item="id" open="id in (" close=")"
+				separator=",">
+				<!-- 每个遍历需要拼接的串 -->
+				#{id}
+			</foreach>
+			<!-- 实现 “ and id IN(1,10,16)”拼接 -->
+			<!-- <foreach collection="ids" item="user_id" open="and id IN(" close=")" 
+				separator=","> 每个遍历需要拼接的串 #{user_id} </foreach> -->
+		</if>
+	</sql>
+
+	<!-- 批量删除 -->
+	<select id="deleterWares" parameterType="com.cn.myspring.po.WareExtendPo"
+		resultType="java.lang.Integer">
+		delete from ware
+		<where>
+			<include refid="in_ids" />
+		</where>
+	</select>
+
+	<!-- 商品列表查询 -->
+	<!-- parameterType传入包装对象(包装了查询条件) resultType建议使用扩展对象 -->
+	<select id="findWaresList" parameterType="com.cn.myspring.po.WareExtend"
+		resultType="com.cn.myspring.po.WareExtend">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ware
+		<where>
+			<include refid="query_wares_where" />
+		</where>
+	</select>
+
+</mapper>

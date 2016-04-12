@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	">
+	<context:component-scan base-package="com.cn.hessian" />
+	
+	<!-- 使用Spring的HessianServie做代理 -->
+	<bean name="/helloHession"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<!-- service引用具体的实现实体Bean -->
+		<property name="service" ref="isay" />
+		<property name="serviceInterface" value="com.cn.hessian.Isay" />
+	</bean>
+	<!-- 可以配置多个HessianServiceExporter代理Bean -->
+
+</beans>

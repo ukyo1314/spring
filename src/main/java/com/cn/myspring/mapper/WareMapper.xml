@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.myspring.mapper.WareMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.myspring.po.Ware" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="businessid" property="businessid" jdbcType="INTEGER" />
+    <result column="creationdate" property="creationdate" jdbcType="TIMESTAMP" />
+    <result column="periodtime" property="periodtime" jdbcType="TIMESTAMP" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.myspring.po.Ware" extends="BaseResultMap" >
+    <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, businessid, creationdate, periodtime, pic, price
+  </sql>
+  <sql id="Blob_Column_List" >
+    detail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ware
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ware
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.myspring.po.Ware" >
+    insert into ware (id, name, businessid, 
+      creationdate, periodtime, pic, 
+      price, detail)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{businessid,jdbcType=INTEGER}, 
+      #{creationdate,jdbcType=TIMESTAMP}, #{periodtime,jdbcType=TIMESTAMP}, #{pic,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{detail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.myspring.po.Ware" >
+    insert into ware
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="businessid != null" >
+        businessid,
+      </if>
+      <if test="creationdate != null" >
+        creationdate,
+      </if>
+      <if test="periodtime != null" >
+        periodtime,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="businessid != null" >
+        #{businessid,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null" >
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodtime != null" >
+        #{periodtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.myspring.po.Ware" >
+    update ware
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="businessid != null" >
+        businessid = #{businessid,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null" >
+        creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodtime != null" >
+        periodtime = #{periodtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.myspring.po.Ware" >
+    update ware
+    set name = #{name,jdbcType=VARCHAR},
+      businessid = #{businessid,jdbcType=INTEGER},
+      creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      periodtime = #{periodtime,jdbcType=TIMESTAMP},
+      pic = #{pic,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      detail = #{detail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.myspring.po.Ware" >
+    update ware
+    set name = #{name,jdbcType=VARCHAR},
+      businessid = #{businessid,jdbcType=INTEGER},
+      creationdate = #{creationdate,jdbcType=TIMESTAMP},
+      periodtime = #{periodtime,jdbcType=TIMESTAMP},
+      pic = #{pic,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
