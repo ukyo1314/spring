@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cn.myspring.mapper.WareAndBusinessMapper;
 import com.cn.myspring.mapper.WareExtendMapper;
 import com.cn.myspring.mapper.WareMapper;
+import com.cn.myspring.po.AA;
 import com.cn.myspring.po.Ware;
+import com.cn.myspring.po.WareAndBusiness;
 import com.cn.myspring.po.WareExtend;
 import com.cn.myspring.po.WareExtendPo;
 
@@ -19,9 +22,11 @@ public class WareService {
     private WareMapper wareMapper;  
     @Autowired  
     private WareExtendMapper wareExtendMapper;  
+    @Autowired  
+    private WareAndBusinessMapper wareAndBusinessMapper;  
+    
     
     public Ware selectByPrimaryKey(Integer id){
-    	
     	 return wareMapper.selectByPrimaryKey(id);
     }
     
@@ -38,4 +43,12 @@ public class WareService {
 		return wareExtends;
     }
     
+    
+    public List<WareAndBusiness> findWaresNameListByBusinessId(){
+    	return wareAndBusinessMapper.findWaresNameListByBusinessId();
+    }
+    
+    public List<AA> findAAList(){
+    	return wareAndBusinessMapper.findAAList();
+    }
 }

@@ -8,9 +8,12 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	">
-	
+	<context:property-placeholder location="jdbc.properties" />
+	<context:property-placeholder location="log4j.properties" />
+
+	<import resource="spring-mybatis.xml"/>
 	<!-- <import resource="spring-redis.xml"/> -->
 	<!-- <import resource="spring-quartz.xml"/> -->
-	<!--  <import resource="spring-hessian.xml"/> -->
-	<import resource="spring-mongodb.xml"/>
+	<!-- <import resource="spring-hessian.xml"/> -->
+	<!--<import resource="spring-mongodb.xml"/> -->
 </beans>

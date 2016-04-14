@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.myspring.mapper.WareAndBusinessMapper">
+	<resultMap id="BaseResultMap" type="com.cn.myspring.po.WareAndBusiness">
+		<id column="businessid" property="businessid" jdbcType="INTEGER" />
+		<collection property="list" ofType="WareExtend">
+			<id column="name" property="name" />
+			<result column="pcount" property="pcount" />
+		</collection>
+	</resultMap>
+
+	<resultMap id="AAResultMap" type="com.cn.myspring.po.AA">
+		<id column="aa" property="aa" jdbcType="INTEGER" />
+		<collection property="alist" ofType="com.cn.myspring.po.BB">
+			<id column="bb" property="bb" />
+			<collection property="blist" ofType="com.cn.myspring.po.CC">
+				<id column="cc" property="cc" />
+				<collection property="clist" ofType="com.cn.myspring.po.DD">
+					<id column="dd" property="dd" />
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+
+	<select id="findWaresNameListByBusinessId" resultMap="BaseResultMap">
+		SELECT
+		a.businessid,a.name,COUNT(b.id) pcount
+		FROM ware a left join kk b on
+		a.price=b.id
+		GROUP BY a.businessid,a.name
+	</select>
+
+	<select id="findAAList" resultMap="AAResultMap">
+		SELECT aa,bb,cc,dd FROM aa
+	</select>
+
+</mapper>

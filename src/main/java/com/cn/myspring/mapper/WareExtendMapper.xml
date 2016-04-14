@@ -55,5 +55,5 @@
 			<include refid="query_wares_where" />
 		</where>
 	</select>
-
+	
 </mapper>
